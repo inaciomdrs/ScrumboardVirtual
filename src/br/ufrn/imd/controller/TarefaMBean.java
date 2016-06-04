@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
@@ -22,42 +23,55 @@ public class TarefaMBean {
 
 	@EJB
 	private TarefaService tarefaService;
+	
+	@ManagedProperty(value = "#{usuarioMBean}")
+	private UsuarioMBean usuarioMBean;
 
 	private Tarefa tarefa;
-	
-	private final Estado OPEN_STATE; 
+	private Tarefa novaTarefa;
+
+	private final Estado OPEN_STATE;
 	private final Estado CLOSED_STATE;
 	private final Usuario NO_OWNER;
-	
+
 	private Map<Usuario, List<Tarefa>> tarefasUsuarios;
 	private List<Tarefa> tarefasLivres;
-	
+
 	public TarefaMBean() {
 		cleanData();
 		OPEN_STATE = Estado.OPEN;
 		CLOSED_STATE = Estado.CLOSED;
 		NO_OWNER = null;
 	}
-	
-	public void cleanData(){
-		tarefa = new Tarefa();
-		tarefasUsuarios = new HashMap<Usuario, List<Tarefa>>();
-		tarefasLivres = new ArrayList<Tarefa>();
-	}
 
-	public Tarefa getTarefa() {
-		return tarefa;
-	}
-
-	public void setTarefa(Tarefa tarefa) {
-		this.tarefa = tarefa;
-	}
-	
-	public String exibeTarefa(){
+	public String exibeTarefa() {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		selecionarTarefa(facesContext);
-		
+
 		return "/board_area/index.jsf";
+	}
+
+	public void fecharTarefa() {
+		tarefa = tarefaService.fecharTarefa(tarefa);
+
+		if (tarefa == null) {
+			tarefa = new Tarefa();
+		}
+	}
+
+	public void assumirTarefa() {
+		tarefa = tarefaService.assumirTarefa(usuarioMBean.getUsuarioLogado(), tarefa);
+
+		if (tarefa == null) {
+			tarefa = new Tarefa();
+		}
+	}
+
+	public void cleanData() {
+		tarefa = new Tarefa();
+		novaTarefa = new Tarefa();
+		tarefasUsuarios = new HashMap<Usuario, List<Tarefa>>();
+		tarefasLivres = new ArrayList<Tarefa>();
 	}
 
 	public void selecionarTarefa(FacesContext facesContext) {
@@ -72,34 +86,42 @@ public class TarefaMBean {
 		}
 
 	}
-	
-	public void prepareBoardAreaFrom(List<Usuario> participantesProjeto, Sprint sprint){
+
+	public void prepareBoardAreaFrom(List<Usuario> participantesProjeto, Sprint sprint) {
 		cleanData();
-		
+
 		List<Tarefa> sprintTasks = tarefaService.tarefasDaSprint(sprint);
 
-		if((sprintTasks != null) && (sprintTasks.size() > 0)){
+		if ((sprintTasks != null) && (sprintTasks.size() > 0)) {
 			long userId;
 			List<Tarefa> tarefasUsuario;
 			for (Usuario participante : participantesProjeto) {
 				tarefasUsuario = new ArrayList<Tarefa>();
 				for (Tarefa tarefa : sprintTasks) {
-					if(tarefa.getUsuario() != NO_OWNER){
+					if (tarefa.getUsuario() != NO_OWNER) {
 						userId = tarefa.getUsuario().getId();
 						if (userId == participante.getId()) {
 							tarefasUsuario.add(tarefa);
 						}
-					} else if(!tarefasLivres.contains(tarefa)) {
+					} else if (!tarefasLivres.contains(tarefa)) {
 						tarefasLivres.add(tarefa);
 					}
 				}
 				tarefasUsuarios.put(participante, tarefasUsuario);
 			}
 		}
-		
+
 		setTarefa(new Tarefa());
 	}
-	
+
+	public Tarefa getTarefa() {
+		return tarefa;
+	}
+
+	public void setTarefa(Tarefa tarefa) {
+		this.tarefa = tarefa;
+	}
+
 	public Estado getOPEN_STATE() {
 		return OPEN_STATE;
 	}
@@ -111,7 +133,7 @@ public class TarefaMBean {
 	public Usuario getNO_OWNER() {
 		return NO_OWNER;
 	}
-	
+
 	public Map<Usuario, List<Tarefa>> getTarefasUsuarios() {
 		return tarefasUsuarios;
 	}
@@ -126,6 +148,22 @@ public class TarefaMBean {
 
 	public void setTarefasLivres(List<Tarefa> tarefasLivres) {
 		this.tarefasLivres = tarefasLivres;
+	}
+
+	public Tarefa getNovaTarefa() {
+		return novaTarefa;
+	}
+
+	public void setNovaTarefa(Tarefa novaTarefa) {
+		this.novaTarefa = novaTarefa;
+	}
+
+	public UsuarioMBean getUsuarioMBean() {
+		return usuarioMBean;
+	}
+
+	public void setUsuarioMBean(UsuarioMBean usuarioMBean) {
+		this.usuarioMBean = usuarioMBean;
 	}
 
 }

@@ -82,11 +82,16 @@
 		</p>
 
 		<ul style="margin: 0; padding: 0; float: right">
-			<li style="display: inline"><h:commandButton rendered="true"
-					value="Fechar" action="#" class="btn btn-danger" /></li>
+			<c:if test="#{tarefaMBean.tarefa.estado eq tarefaMBean.OPEN_STATE}">
+				<li style="display: inline"><h:commandButton rendered="true"
+						value="Fechar" action="#{projetoMBean.fecharTarefa}" class="btn btn-danger" /></li>
+			</c:if>
 
-			<li style="display: inline"><h:commandButton rendered="true"
-					value="Assumir" action="#" class="btn btn-info" /></li>
+			<c:if test="#{tarefaMBean.tarefa.usuario eq tarefaMBean.NO_OWNER}">
+				<li style="display: inline"><h:commandButton rendered="true"
+					value="Assumir" action="#{projetoMBean.assumirTarefa}" class="btn btn-info" /></li>	
+			</c:if>
+			
 		</ul>
 
 	</ui:define>

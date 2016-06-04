@@ -6,8 +6,10 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import br.ufrn.imd.dao.jpa.TarefaJPADAO;
+import br.ufrn.imd.dominio.Estado;
 import br.ufrn.imd.dominio.Sprint;
 import br.ufrn.imd.dominio.Tarefa;
+import br.ufrn.imd.dominio.Usuario;
 
 @Stateless
 public class TarefaService {
@@ -34,6 +36,22 @@ public class TarefaService {
 	
 	public Tarefa buscaPorId(long id){
 		return tarefaJPADAO.listarPorId(id);
+	}
+	
+	public Tarefa fecharTarefa(Tarefa tarefa){
+		if(tarefa.getEstado() == Estado.OPEN){
+			tarefa.setEstado(Estado.CLOSED);
+			tarefa = atualizarTarefa(tarefa);
+		}
+		return tarefa;
+	}
+	
+	public Tarefa assumirTarefa(Usuario usuario, Tarefa tarefa){
+		if(usuario != null){
+			tarefa.setUsuario(usuario);
+			tarefa = atualizarTarefa(tarefa);
+		}
+		return tarefa;
 	}
 	
 }

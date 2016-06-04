@@ -17,8 +17,6 @@ import br.ufrn.imd.dominio.Projeto;
 import br.ufrn.imd.dominio.Sprint;
 import br.ufrn.imd.dominio.Usuario;
 import br.ufrn.imd.negocio.ProjetoService;
-import br.ufrn.imd.negocio.SprintService;
-import br.ufrn.imd.negocio.TarefaService;
 
 @ManagedBean
 @SessionScoped
@@ -26,12 +24,6 @@ public class ProjetoMBean {
 
 	@EJB
 	private ProjetoService projetoService;
-
-	@EJB
-	private SprintService sprintService;
-
-	@EJB
-	private TarefaService tarefaService;
 
 	@ManagedProperty(value = "#{usuarioMBean}")
 	private UsuarioMBean usuarioMBean;
@@ -107,6 +99,23 @@ public class ProjetoMBean {
 
 		listaProjetos = new ListDataModel<Projeto>(projetos);
 	}
+	
+	
+	 
+	 public String fecharTarefa() {
+		tarefaMBean.fecharTarefa();
+		return "/board_area/index.jsf";
+	}
+
+	public String assumirTarefa() {
+		tarefaMBean.assumirTarefa();
+		
+		tarefaMBean.prepareBoardAreaFrom(participantesProjeto, sprintMBean.getSprint());
+		
+		return "/board_area/index.jsf";
+	}
+	 
+	 
 
 	public Projeto selecionarProjeto(FacesContext facesContext) {
 		Map<String, String> params = facesContext.getExternalContext().getRequestParameterMap();

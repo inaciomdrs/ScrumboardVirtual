@@ -33,22 +33,6 @@ public class SprintMBean {
 	public SprintMBean() {
 		cleanData();
 	}
-
-	public Sprint getSprint() {
-		return sprint;
-	}
-
-	public void setSprint(Sprint sprint) {
-		this.sprint = sprint;
-	}
-
-	public List<Sprint> getListaSprints() {
-		return listaSprints;
-	}
-
-	public void setListaSprints(List<Sprint> listaSprints) {
-		this.listaSprints = listaSprints;
-	}
 	
 	public void selecionarSprint(){
 		FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -83,6 +67,22 @@ public class SprintMBean {
 		novaSprint = new Sprint();
 		sprint = new Sprint();
 		listaSprints = new ArrayList<Sprint>();
+	}
+
+	public Sprint getSprint() {
+		return sprint;
+	}
+
+	public void setSprint(Sprint sprint) {
+		this.sprint = sprint;
+	}
+
+	public List<Sprint> getListaSprints() {
+		return listaSprints;
+	}
+
+	public void setListaSprints(List<Sprint> listaSprints) {
+		this.listaSprints = listaSprints;
 	}
 
 	public TarefaMBean getTarefaMBean() {
