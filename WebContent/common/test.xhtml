@@ -1,0 +1,251 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/include/template.xhtml">
+
+	<ui:define name="conteudo">
+		<h:form>
+		
+			<!-- Testa cadastro de usuário -->
+		
+			<div class="row">
+				<div class="col-sm-6">
+					<h3 class="white">Testa cadastro de usuário</h3>
+				</div>
+				<div class="col-sm-6">
+					<h3 class="white">
+						<h:commandLink action="#{testaJPADAOMBean.testaCadastroUsuario}"
+							value="Testar" />
+					</h3>
+
+				</div>
+			</div>
+			
+			<!-- Testa busca por usuário -->
+
+			<div class="row">
+				<div class="col-sm-6">
+					<h3 class="white">Testa busca por usuário</h3>
+				</div>
+				<div class="col-sm-3">
+					<h3 class="white">
+						<h:commandLink action="#{testaJPADAOMBean.testaBuscaUsuarios}"
+							value="Testar" />
+					</h3>
+				</div>
+				<div class="col-sm-3">
+					<h3 class="white">
+						<h:outputText value="#{testaJPADAOMBean.usuario.nome}" />
+					</h3>
+				</div>
+			</div>
+			
+			<!-- Testa listagem de usuários -->
+
+			<div class="row">
+				<div class="col-sm-6">
+					<h3 class="white">Testa listagem de usuários</h3>
+				</div>
+				<div class="col-sm-3">
+					<h3 class="white">
+						<h:commandLink action="#{testaJPADAOMBean.testaListagemUsuarios}"
+							value="Testar" />
+					</h3>
+				</div>
+			</div>
+
+			<div class="row">
+				<h:dataTable class="table table-responsive" value="#{testaJPADAOMBean.usuariosModel}" var="usuario">
+					<h:column>
+						<f:facet name="header"><h3 class="white">Login</h3></f:facet>
+						<h:outputText class="white" value="#{usuario.login}" />
+					</h:column>
+					<h:column>
+						<f:facet class="white" name="header"><h3 class="white">Nome</h3></f:facet>
+						<h:outputText class="white" value="#{usuario.nome}" />
+					</h:column>
+				</h:dataTable>
+			</div>
+			
+			<!-- Testa adição de usuários a projeto -->
+			
+			<div class="row">
+				<div class="col-sm-6">
+					<h3 class="white">Testa adição de usuários a projeto</h3>
+				</div>
+				<div class="col-sm-3">
+					<h3 class="white">
+						<h:commandLink action="#{testaJPADAOMBean.testaAdicaoColaboradorProjeto}"
+							value="Testar" />
+					</h3>
+				</div>
+			</div>
+
+			<div class="row">
+				<h:dataTable class="table table-responsive" value="#{testaJPADAOMBean.usuariosModel}" var="usuario">
+					<h:column>
+						<f:facet name="header"><h3 class="white">Login</h3></f:facet>
+						<h:outputText class="white" value="#{usuario.login}" />
+					</h:column>
+					<h:column>
+						<f:facet class="white" name="header"><h3 class="white">Nome</h3></f:facet>
+						<h:outputText class="white" value="#{usuario.nome}" />
+					</h:column>
+				</h:dataTable>
+			</div>
+			
+			<!-- Testa Listagem de projetos -->
+			
+			<div class="row">
+				<div class="col-sm-6">
+					<h3 class="white">Testa Listagem de projetos</h3>
+				</div>
+				<div class="col-sm-3">
+					<h3 class="white">
+						<h:commandLink action="#{testaJPADAOMBean.testaListagemProjetos}"
+							value="Testar" />
+					</h3>
+				</div>
+			</div>
+
+			<div class="row">
+				<h:dataTable class="table table-responsive" value="#{testaJPADAOMBean.projetosModel}" var="projeto">
+					<h:column>
+						<f:facet name="header"><h3 class="white">Projeto</h3></f:facet>
+						<h:outputText class="white" value="#{projeto.titulo}" />
+					</h:column>
+					<h:column>
+						<f:facet class="white" name="header"><h3 class="white">Descrição</h3></f:facet>
+						<h:outputText class="white" value="#{projeto.descricao}" />
+					</h:column>
+				</h:dataTable>
+			</div>
+			
+			<!-- Testa criação de projetos -->
+			
+			<div class="row">
+				<div class="col-sm-6">
+					<h3 class="white">Testa criação de projetos</h3>
+				</div>
+				<div class="col-sm-3">
+					<h3 class="white">
+						<h:commandLink action="#{testaJPADAOMBean.testaCriacaoProjeto}"
+							value="Testar" />
+					</h3>
+				</div>
+			</div>
+			
+			<!-- Testa Listagem de sprints -->
+			
+			<div class="row">
+				<div class="col-sm-6">
+					<h3 class="white">Testa Listagem de Sprints</h3>
+				</div>
+				<div class="col-sm-3">
+					<h3 class="white">
+						<h:commandLink action="#{testaJPADAOMBean.testaListagemSprint}"
+							value="Testar" />
+					</h3>
+				</div>
+			</div>
+
+			<div class="row">
+				<h:dataTable class="table table-responsive" value="#{testaJPADAOMBean.sprintModel}" var="sprint">
+					<h:column>
+						<f:facet name="header"><h3 class="white">Sprint</h3></f:facet>
+						<h:outputText class="white" value="#{sprint.titulo}" />
+					</h:column>
+					<h:column>
+						<f:facet class="white" name="header"><h3 class="white">Descrição</h3></f:facet>
+						<h:outputText class="white" value="#{sprint.descricao}" />
+					</h:column>
+					<h:column>
+						<f:facet class="white" name="header"><h3 class="white">Projeto</h3></f:facet>
+						<h:outputText class="white" value="#{sprint.projeto.titulo}" />
+					</h:column>
+				</h:dataTable>
+			</div>
+			
+			<!-- Testa criação de sprints -->
+			
+			<div class="row">
+				<div class="col-sm-6">
+					<h3 class="white">Testa criação de sprints</h3>
+				</div>
+				<div class="col-sm-3">
+					<h3 class="white">
+						<h:commandLink action="#{testaJPADAOMBean.testaCriacaoSprint}"
+							value="Testar" />
+					</h3>
+				</div>
+			</div>
+			
+			<!-- Testa criação de tarefas -->
+			
+			<div class="row">
+				<div class="col-sm-6">
+					<h3 class="white">Testa criação de tarefa</h3>
+				</div>
+				<div class="col-sm-3">
+					<h3 class="white">
+						<h:commandLink action="#{testaJPADAOMBean.testaCriacaoTarefa}"
+							value="Testar" />
+					</h3>
+				</div>
+			</div>						
+			
+			<!-- Testa Listagem de tarefas -->
+			
+			<div class="row">
+				<div class="col-sm-6">
+					<h3 class="white">Testa Listagem de Tarefas</h3>
+				</div>
+				<div class="col-sm-3">
+					<h3 class="white">
+						<h:commandLink action="#{testaJPADAOMBean.testaListagemTarefa}"
+							value="Testar" />
+					</h3>
+				</div>
+			</div>
+
+			<div class="row">
+				<h:dataTable class="table table-responsive" value="#{testaJPADAOMBean.tarefasModel}" var="tarefa">
+					<h:column>
+						<f:facet name="header"><h3 class="white">Tarefa</h3></f:facet>
+						<h:outputText class="white" value="#{tarefa.titulo}" />
+					</h:column>
+					<h:column>
+						<f:facet class="white" name="header"><h3 class="white">Pontuacao</h3></f:facet>
+						<h:outputText class="white" value="#{tarefa.pontuacao}" />
+					</h:column>
+					<h:column>
+						<f:facet class="white" name="header"><h3 class="white">Estado</h3></f:facet>
+						<h:outputText class="white" value="#{tarefa.estado}" />
+					</h:column>
+					<h:column>
+						<f:facet class="white" name="header"><h3 class="white">Usuario</h3></f:facet>
+						<h:outputText class="white" value="#{tarefa.usuario.login}" />
+					</h:column>
+				</h:dataTable>
+			</div>
+			
+			<!-- Testa Atualização de tarefas -->
+			
+			<div class="row">
+				<div class="col-sm-6">
+					<h3 class="white">Testa Atualização de Tarefas</h3>
+				</div>
+				<div class="col-sm-3">
+					<h3 class="white">
+						<h:commandLink action="#{testaJPADAOMBean.testaAtualizacaoTarefa}"
+							value="Testar" />
+					</h3>
+				</div>
+			</div>
+			
+		</h:form>
+	</ui:define>
+
+</ui:composition>

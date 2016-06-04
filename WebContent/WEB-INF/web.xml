@@ -1,0 +1,22 @@
+<web-app>
+  <display-name>Scrumboard Virtual</display-name>
+  
+  <welcome-file-list>
+  	<welcome-file>index.jsf</welcome-file>
+  </welcome-file-list>
+  
+  <!-- Definição da Faces Servlet -->
+  <servlet>
+  	<servlet-name>Faces Servlet</servlet-name>
+  	<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+  	<load-on-startup>1</load-on-startup>
+  </servlet>
+ 
+  <!-- Mapeamento para que a Faces Servlet intercepte todo arquivo jsf -->
+  <servlet-mapping>
+  	<servlet-name>Faces Servlet</servlet-name>
+  	<url-pattern>*.jsf</url-pattern>
+  </servlet-mapping>
+  
+  
+</web-app>

@@ -1,0 +1,42 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/include/template.xhtml">
+
+	<ui:define name="conteudo">
+		<div class="row">
+			<div class="col-sm-9">
+				<h:graphicImage value="/resources/img/logo_name.png" />
+			</div>
+			<h:form>
+				<div class="col-sm-3">
+					<h3 class="user_logged">
+						<h:outputText value="#{usuarioMBean.usuarioLogado.nome}" />
+						<h:commandLink action="#{usuarioMBean.logout}" value="Sair" class="badge" />
+					</h3>
+				</div>
+			</h:form>
+		</div>
+
+		<div class="row">
+			<h1 class="white">Projetos:</h1>
+		</div>
+
+		<div class="row">
+			<h:form>
+				<p:panelGrid columns="3" layout="grid">
+					<ui:repeat var="projeto" value="#{projetoMBean.listaProjetos}" varStatus="status">
+						<h:commandLink action="#{projetoMBean.boardArea}" value="#{projeto.titulo}"
+							class="project">
+							<f:param name="projeto_id" value="#{projeto.id}" />
+						</h:commandLink>
+					</ui:repeat>
+				</p:panelGrid>
+			</h:form>
+		</div>
+
+	</ui:define>
+
+</ui:composition>

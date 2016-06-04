@@ -1,0 +1,80 @@
+body {
+	background-image: url(#{request.contextPath}/resources/img/background.jpg);
+}
+
+h1 {
+	font-family: cursive;
+}
+
+li {
+	background-color: white;
+}
+
+.open_user_story, .closed_user_story {
+	font-weight: bold;
+}
+
+.closed_user_story {
+	color: red;
+}
+
+.center-of-page {
+	margin-top: 15%;
+}
+
+.copy-left {
+	display: inline-block;
+	text-align: right;
+	margin: 0px;
+	-moz-transform: scaleX(-1);
+	-o-transform: scaleX(-1);
+	-webkit-transform: scaleX(-1);
+	transform: scaleX(-1);
+}
+
+.open_user_story {
+	color: green;
+}
+
+.project {
+	border-radius: 50%;
+}
+
+.side-retangle, .tela_cadastro {
+	background-color: #F5F5EE;
+	border-radius: 10px;
+}
+
+.tela_cadastro {
+	padding: 2%;
+}
+
+.link:hover {
+	text-decoration: none;
+	color: gray;
+}
+
+.user_logged, .white {
+	color: white;
+}
+
+.user_logged {
+	font-family: cursive;
+	float: right;
+}
+
+.user_story, .project, li {
+	border-radius: 5px;
+}
+
+.user_story, .project {
+	color: black;
+	background-color: #CBCBCB;
+	padding: inherit;
+	margin: inherit;
+}
+
+.space {
+	margin-left: 1%;
+	margin-right: 1%;
+}

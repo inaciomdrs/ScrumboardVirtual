@@ -1,0 +1,69 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/include/template_projects_area.xhtml">
+
+	<ui:define name="conteudo_area">
+
+		<div class="col-sm-8 tela_cadastro">
+			<p:column rendered="true">
+				<h1>Titulo do projeto</h1>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
+					mattis neque blandit turpis suscipit, nec consequat lorem
+					scelerisque. Aliquam eu consectetur erat. Aliquam malesuada
+					tincidunt diam viverra pretium. Duis venenatis nisi ac justo
+					molestie, eu ullamcorper felis ullamcorper. Suspendisse non rhoncus
+					odio. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+					Donec eu mauris eget neque volutpat congue. Morbi dolor ex, pretium
+					sit amet justo et, commodo sagittis sapien. Nullam quis porttitor
+					urna. Maecenas semper rutrum urna, eu egestas enim eleifend
+					dignissim. Sed eget justo ex. Vivamus elementum justo ac ante
+					varius, in porta orci dapibus. In porta et tortor eu congue. Mauris
+					non nunc arcu. Suspendisse vel felis eget erat lobortis blandit.</p>
+			</p:column>
+
+			<hr />
+
+			<p:column rendered="true">
+				<fieldset>
+					<div class="form-group">
+						<div class="col-sm-10">
+							<h:inputText value="Usuario" required="true" class="form-control" />
+						</div>
+						<div class="col-sm-2">
+							<h:commandButton value="Buscar" class="btn btn-primary" />
+						</div>
+					</div>
+				</fieldset>
+
+				<hr />
+
+				<h:panelGroup layout="block" styleClass="selection">
+					<h:selectManyCheckbox layout="pageDirection">
+						<f:selectItem itemValue="h" itemLabel="Handerson" />
+						<f:selectItem itemValue="i" itemLabel="Isaac" />
+					</h:selectManyCheckbox>
+				</h:panelGroup>
+
+				<br />
+
+				<h:commandButton value="Adicionar" class="btn btn-primary" />
+			</p:column>
+		</div>
+
+		<div class="col-sm-4 tela_cadastro">
+			<h1>Participantes</h1>
+			<ul>
+				<li>Inácio</li>
+				<li>Itamir</li>
+			</ul>
+			<br />
+
+			<h:commandLink value="Adicionar Participantes" class="link" />
+		</div>
+	</ui:define>
+
+</ui:composition>

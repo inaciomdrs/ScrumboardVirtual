@@ -1,0 +1,40 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/include/template.xhtml">
+
+	<ui:define name="conteudo">
+		<div class="row">
+			<div class="col-md-6 center-of-page">
+				<h:graphicImage style="margin-left:25%;" value="/resources/img/logo.png" />
+			</div>
+			<div class="col-md-6 center-of-page">
+				<h:form>
+					<fieldset>
+						<div>
+							<h:messages style="color: black;" />
+						</div>
+						
+						<div class="form-group">
+							<label class="white">Login:</label>
+							<h:inputText class="form-control" value="#{usuarioMBean.usuario.login}" />
+						</div>
+						<div class="form-group">
+							<label class="white">Senha:</label>
+							<h:inputSecret class="form-control" value="#{usuarioMBean.usuario.senha}" />
+						</div>
+						<div class="form-group">
+							<h:selectBooleanCheckbox value="false" />
+							<label class="white">Usuário GitHub</label>
+						</div>
+						<h:commandButton class="btn btn-default space" action="#{usuarioMBean.logar}" value="Entrar" />
+						<h:commandButton class="btn btn-default space" action="#" value="Criar Conta" />											
+					</fieldset>
+				</h:form>
+			</div>
+		</div>
+	</ui:define>
+
+</ui:composition>

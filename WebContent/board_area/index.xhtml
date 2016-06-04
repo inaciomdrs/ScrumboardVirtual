@@ -1,0 +1,103 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/include/template_logged_user.xhtml">
+
+	<ui:define name="quadro">
+		<p:tabView dynamic="true" cache="true">
+			<c:forEach items="#{tarefaMBean.tarefasUsuarios}"
+				var="participanteTarefa">
+
+				<p:tab title="#{participanteTarefa.key.nome}">
+
+					<c:forEach items="#{participanteTarefa.value}" var="tarefa">
+						<div class="row">
+							<div class="col-sm-7">
+								<h:commandLink class="user_story"
+									action="#{tarefaMBean.exibeTarefa}">
+									<h:outputText value="#{tarefa.titulo}" />
+									<f:param name="tarefa_id" value="#{tarefa.id}" />
+								</h:commandLink>
+							</div>
+						</div>
+					</c:forEach>
+
+				</p:tab>
+
+			</c:forEach>
+
+			<p:tab title="Livres">
+				<c:forEach items="#{tarefaMBean.tarefasLivres}" var="tarefa">
+					<div class="row">
+						<div class="col-sm-7">
+							<h:commandLink class="user_story"
+								action="#{tarefaMBean.exibeTarefa}">
+								<h:outputText value="#{tarefa.titulo}" />
+								<f:param name="tarefa_id" value="#{tarefa.id}" />
+							</h:commandLink>
+						</div>
+					</div>
+				</c:forEach>
+
+				<div class="row">
+					<div class="col-sm-7">
+						<h:commandButton value="Distribuir" action="#" />
+					</div>
+				</div>
+			</p:tab>
+		</p:tabView>
+
+	</ui:define>
+
+	<ui:define name="side_retangle">
+		<strong><h:outputText value="#{tarefaMBean.tarefa.titulo}" /></strong>
+		<p>
+			<strong>Responsável</strong>:
+			<h:outputText value="#{tarefaMBean.tarefa.usuario.nome}" />
+		</p>
+		<p>
+			<h:outputText value="#{tarefaMBean.tarefa.descricao}" />
+		</p>
+		<p>
+			<h:outputText value="#{tarefaMBean.tarefa.pontuacao}" />
+			pontos
+		</p>
+		<p>
+			<c:choose>
+				<c:when
+					test="#{tarefaMBean.tarefa.estado eq tarefaMBean.OPEN_STATE}">
+					<strong class="open_user_story"><h:outputText
+							rendered="true" value="Aberta" /></strong>
+				</c:when>
+
+				<c:when
+					test="#{tarefaMBean.tarefa.estado eq tarefaMBean.CLOSED_STATE}">
+					<strong class="closed_user_story"><h:outputText
+							rendered="true" value="Fechada" /></strong>
+				</c:when>
+			</c:choose>
+		</p>
+
+		<ul style="margin: 0; padding: 0; float: right">
+			<li style="display: inline"><h:commandButton rendered="true"
+					value="Fechar" action="#" class="btn btn-danger" /></li>
+
+			<li style="display: inline"><h:commandButton rendered="true"
+					value="Assumir" action="#" class="btn btn-info" /></li>
+		</ul>
+
+	</ui:define>
+
+	<ui:define name="quadro_bottom">
+		<ul style="margin: 0; padding: 0">
+			<li style="display: inline"><h:commandButton value="Nova Sprint"
+					action="#" class="btn" /></li>
+			<li style="display: inline"><h:commandButton
+					value="Nova User Story" action="#" class="btn" /></li>
+		</ul>
+	</ui:define>
+
+</ui:composition>
