@@ -42,6 +42,8 @@ public class ProjetoMBean {
 
 	private List<Usuario> participantesProjeto;
 
+	private Usuario[] participantesSelecionadosDistribuicao;
+
 	public ProjetoMBean() {
 		projeto = new Projeto();
 		projetoSelecionadoBoardArea = new Projeto();
@@ -81,7 +83,7 @@ public class ProjetoMBean {
 			tarefaMBean.cleanData();
 		}
 
-		return "/board_area/index.jsf";
+		return goBoardArea();
 	}
 
 	public String selecionarSprint() {
@@ -89,28 +91,28 @@ public class ProjetoMBean {
 
 		tarefaMBean.prepareBoardAreaFrom(participantesProjeto, sprintMBean.getSprint());
 
-		return "/board_area/index.jsf";
+		return goBoardArea();
 	}
-	
-	public String cadastrarSprint(){
+
+	public String cadastrarSprint() {
 		sprintMBean.cadastrarNovaSprint(projetoSelecionadoBoardArea);
-		
+
 		sprintMBean.prepareBoardAreaFrom(projetoSelecionadoBoardArea);
 
-		return "/board_area/index.jsf";
+		return goBoardArea();
 	}
-	
-	public String cadastrarTarefa(){
+
+	public String cadastrarTarefa() {
 		tarefaMBean.cadastrarNovaTarefa(sprintMBean.getSprint());
-		
+
 		tarefaMBean.prepareBoardAreaFrom(participantesProjeto, sprintMBean.getSprint());
-		
-		return "/board_area/index.jsf"; 
+
+		return goBoardArea();
 	}
 
 	public String fecharTarefa() {
 		tarefaMBean.fecharTarefa();
-		return "/board_area/index.jsf";
+		return goBoardArea();
 	}
 
 	public String assumirTarefa() {
@@ -118,6 +120,15 @@ public class ProjetoMBean {
 
 		tarefaMBean.prepareBoardAreaFrom(participantesProjeto, sprintMBean.getSprint());
 
+		return goBoardArea();
+	}
+	
+	public String distribuirTarefas(){
+		tarefaMBean.distribuirTarefas(participantesProjeto);
+		return goBoardArea();
+	}
+
+	public String goBoardArea() {
 		return "/board_area/index.jsf";
 	}
 
@@ -209,6 +220,14 @@ public class ProjetoMBean {
 
 	public void setTarefaMBean(TarefaMBean tarefaMBean) {
 		this.tarefaMBean = tarefaMBean;
+	}
+
+	public Usuario[] getParticipantesSelecionadosDistribuicao() {
+		return participantesSelecionadosDistribuicao;
+	}
+
+	public void setParticipantesSelecionadosDistribuicao(Usuario[] participantesSelecionadosDistribuicao) {
+		this.participantesSelecionadosDistribuicao = participantesSelecionadosDistribuicao;
 	}
 
 }

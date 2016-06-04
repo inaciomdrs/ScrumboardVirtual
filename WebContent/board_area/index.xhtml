@@ -46,7 +46,8 @@
 
 					<div class="row">
 						<div class="col-sm-7">
-							<h:commandButton value="Distribuir" action="#" />
+							<h:commandButton value="Distribuir"
+								action="#{projetoMBean.distribuirTarefas}" />
 						</div>
 					</div>
 				</p:tab>
@@ -89,7 +90,8 @@
 				</p>
 
 				<ul style="margin: 0; padding: 0; float: right">
-					<c:if test="#{tarefaMBean.tarefa.estado eq tarefaMBean.OPEN_STATE and tarefaMBean.tarefa.usuario.id eq usuarioMBean.usuarioLogado.id}">
+					<c:if
+						test="#{tarefaMBean.tarefa.estado eq tarefaMBean.OPEN_STATE and tarefaMBean.tarefa.usuario.id eq usuarioMBean.usuarioLogado.id}">
 						<li style="display: inline"><h:commandButton rendered="true"
 								value="Fechar" action="#{projetoMBean.fecharTarefa}"
 								class="btn btn-danger" /></li>

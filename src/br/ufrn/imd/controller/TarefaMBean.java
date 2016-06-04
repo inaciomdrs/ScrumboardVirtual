@@ -151,6 +151,10 @@ public class TarefaMBean {
 
 		setTarefa(FIRST_TASK);
 	}
+	
+	public void distribuirTarefas(List<Usuario> participantes){
+		tarefaService.distribuirTarefas(participantes, tarefasLivres);	
+	}
 
 	public Tarefa getTarefa() {
 		return tarefa;
