@@ -29,6 +29,8 @@ public class TarefaMBean {
 
 	private Tarefa tarefa;
 	private Tarefa novaTarefa;
+	
+	private boolean assumirTarefa;
 
 	private final Estado OPEN_STATE;
 	private final Estado CLOSED_STATE;
@@ -40,6 +42,7 @@ public class TarefaMBean {
 
 	public TarefaMBean() {
 		cleanData();
+		assumirTarefa = false;
 		OPEN_STATE = Estado.OPEN;
 		CLOSED_STATE = Estado.CLOSED;
 		NO_OWNER = null;
@@ -53,9 +56,28 @@ public class TarefaMBean {
 		return "/board_area/index.jsf";
 	}
 	
-	public String cadastrarNovaTarefa(){
+	public String cadastroNovaTarefa(){
+		assumirTarefa = false;
 		novaTarefa = new Tarefa();
 		return "/board_area/nova_tarefa.jsf";
+	}
+	
+	public void cadastrarNovaTarefa(Sprint sprint){
+		if(sprint != null){
+			novaTarefa.setSprint(sprint);	
+		}
+		
+		if(assumirTarefa == true){
+			novaTarefa.setUsuario(usuarioMBean.getUsuarioLogado());
+		}
+		
+		novaTarefa.setEstado(OPEN_STATE);
+		
+		novaTarefa = tarefaService.cadastrarTarefa(novaTarefa);
+		
+		if(novaTarefa == null){
+			novaTarefa = new Tarefa();
+		}	
 	}
 
 	public void fecharTarefa() {
@@ -98,8 +120,7 @@ public class TarefaMBean {
 		cleanData();
 
 		List<Tarefa> sprintTasks = tarefaService.tarefasDaSprint(sprint);
-		Tarefa FIRST_TASK = null;
-
+						
 		if ((sprintTasks != null) && (sprintTasks.size() > 0)) {
 			long userId;
 			List<Tarefa> tarefasUsuario;
@@ -117,8 +138,15 @@ public class TarefaMBean {
 				}
 				tarefasUsuarios.put(participante, tarefasUsuario);
 			}
-			
-			FIRST_TASK = tarefasUsuarios.get(participantesProjeto.get(0)).get(0);
+		}
+		
+		List<Tarefa> userTasks;
+		Tarefa FIRST_TASK = null;
+		for(Usuario participante : participantesProjeto){
+			userTasks = tarefasUsuarios.get(participante);
+			if((userTasks != null) && (userTasks.size() > 0)){
+				FIRST_TASK = userTasks.get(0);	
+			}
 		}
 
 		setTarefa(FIRST_TASK);
@@ -178,6 +206,14 @@ public class TarefaMBean {
 
 	public Tarefa getNO_TASK() {
 		return NO_TASK;
+	}
+
+	public boolean isAssumirTarefa() {
+		return assumirTarefa;
+	}
+
+	public void setAssumirTarefa(boolean assumirTarefa) {
+		this.assumirTarefa = assumirTarefa;
 	}
 
 }

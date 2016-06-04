@@ -92,20 +92,20 @@ public class ProjetoMBean {
 		return "/board_area/index.jsf";
 	}
 	
-	public String cadastrarNovaSprint(){
+	public String cadastrarSprint(){
 		sprintMBean.cadastrarNovaSprint(projetoSelecionadoBoardArea);
 		
 		sprintMBean.prepareBoardAreaFrom(projetoSelecionadoBoardArea);
 
 		return "/board_area/index.jsf";
 	}
-
-	private void carregarListagemProjetos() {
-		Usuario usuario = usuarioMBean.getUsuarioLogado();
-
-		List<Projeto> projetos = projetoService.listarProjetosDeUsuario(usuario);
-
-		listaProjetos = new ListDataModel<Projeto>(projetos);
+	
+	public String cadastrarTarefa(){
+		tarefaMBean.cadastrarNovaTarefa(sprintMBean.getSprint());
+		
+		tarefaMBean.prepareBoardAreaFrom(participantesProjeto, sprintMBean.getSprint());
+		
+		return "/board_area/index.jsf"; 
 	}
 
 	public String fecharTarefa() {
@@ -119,6 +119,14 @@ public class ProjetoMBean {
 		tarefaMBean.prepareBoardAreaFrom(participantesProjeto, sprintMBean.getSprint());
 
 		return "/board_area/index.jsf";
+	}
+
+	private void carregarListagemProjetos() {
+		Usuario usuario = usuarioMBean.getUsuarioLogado();
+
+		List<Projeto> projetos = projetoService.listarProjetosDeUsuario(usuario);
+
+		listaProjetos = new ListDataModel<Projeto>(projetos);
 	}
 
 	public Projeto selecionarProjeto(FacesContext facesContext) {

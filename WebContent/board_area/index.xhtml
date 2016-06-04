@@ -89,7 +89,7 @@
 				</p>
 
 				<ul style="margin: 0; padding: 0; float: right">
-					<c:if test="#{tarefaMBean.tarefa.estado eq tarefaMBean.OPEN_STATE}">
+					<c:if test="#{tarefaMBean.tarefa.estado eq tarefaMBean.OPEN_STATE and tarefaMBean.tarefa.usuario.id eq usuarioMBean.usuarioLogado.id}">
 						<li style="display: inline"><h:commandButton rendered="true"
 								value="Fechar" action="#{projetoMBean.fecharTarefa}"
 								class="btn btn-danger" /></li>
@@ -114,7 +114,7 @@
 						value="Nova Sprint" action="#{sprintMBean.cadastroNovaSprint}"
 						class="btn" /></li>
 				<li style="display: inline"><h:commandButton
-						value="Nova Tarefa" action="#{tarefaMBean.cadastrarNovaTarefa}"
+						value="Nova Tarefa" action="#{tarefaMBean.cadastroNovaTarefa}"
 						class="btn" /></li>
 			</ul>
 		</h:form>

@@ -9,7 +9,7 @@
 	<ui:define name="quadro">
 		<div class="tela_cadastro">
 			<h4>
-				<strong>Nova User Story</strong>
+				<strong>Nova Tarefa</strong>
 			</h4>
 
 			<h:form class="form-horizontal">
@@ -17,21 +17,23 @@
 					<div class="form-group">
 						<label class="control-label col-sm-2">Titulo</label>
 						<div class="col-sm-10">
-							<h:inputText required="true" class="form-control" />
+							<h:inputText value="#{tarefaMBean.novaTarefa.titulo}"
+								required="true" class="form-control" />
 						</div>
 					</div>
 
 					<div class="form-group">
 						<label class="control-label col-sm-2">Descrição</label>
 						<div class="col-sm-10">
-							<h:inputTextarea required="true" class="form-control" />
+							<h:inputTextarea value="#{tarefaMBean.novaTarefa.descricao}"
+								required="true" class="form-control" />
 						</div>
 					</div>
 
 					<div class="form-group">
 						<label class="control-label col-sm-2">Pontuação</label>
 						<div class="col-sm-10">
-							<h:selectOneMenu value="1">
+							<h:selectOneMenu value="#{tarefaMBean.novaTarefa.pontuacao}">
 								<f:selectItem itemValue="1" itemLabel="1" />
 								<f:selectItem itemValue="2" itemLabel="2" />
 								<f:selectItem itemValue="3" itemLabel="3" />
@@ -49,9 +51,9 @@
 					<div class="form-group">
 						<label class="control-label col-sm-2">Assumir tarefa</label>
 						<div class="col-sm-10">
-							<h:selectBooleanCheckbox value="n">
-								<f:selectItem itemValue="y" itemLabel="Sim" />
-								<f:selectItem itemValue="n" itemLabel="Não" />
+							<h:selectBooleanCheckbox value="#{tarefaMBean.assumirTarefa}">
+								<f:selectItem itemValue="true" itemLabel="Sim" />
+								<f:selectItem itemValue="false" itemLabel="Não" />
 							</h:selectBooleanCheckbox>
 						</div>
 					</div>
@@ -59,7 +61,7 @@
 					<br />
 
 					<div class="form-group col-sm-offset-10">
-						<h:commandButton action="#" value="Cadastrar"
+						<h:commandButton action="#{projetoMBean.cadastrarTarefa}" value="Cadastrar"
 							class="btn btn-primary" />
 					</div>
 
