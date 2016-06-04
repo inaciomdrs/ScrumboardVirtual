@@ -6,19 +6,22 @@
 	xmlns:p="http://primefaces.org/ui" template="/include/template.xhtml">
 
 	<ui:define name="conteudo">
-		<div class="row">
-			<div class="col-sm-9">
-				<h:graphicImage value="/resources/img/logo_name.png" />
-			</div>
-			<h:form>
+		<h:form>
+			<div class="row">
+				<div class="col-sm-9">
+					<h:graphicImage value="/resources/img/logo_name.png" />
+				</div>
+
 				<div class="col-sm-3">
 					<h3 class="user_logged">
 						<h:outputText value="#{usuarioMBean.usuarioLogado.nome}" />
-						<h:commandLink action="#{usuarioMBean.logout}" value="Sair" class="badge" />
+						<h:commandLink action="#{usuarioMBean.logout}" value="Sair"
+							class="badge" />
 					</h3>
 				</div>
-			</h:form>
-		</div>
+
+			</div>
+		</h:form>
 
 		<div class="row">
 			<h1 class="white">Projetos:</h1>
@@ -27,9 +30,10 @@
 		<div class="row">
 			<h:form>
 				<p:panelGrid columns="3" layout="grid">
-					<ui:repeat var="projeto" value="#{projetoMBean.listaProjetos}" varStatus="status">
-						<h:commandLink action="#{projetoMBean.boardArea}" value="#{projeto.titulo}"
-							class="project">
+					<ui:repeat var="projeto" value="#{projetoMBean.listaProjetos}"
+						varStatus="status">
+						<h:commandLink action="#{projetoMBean.boardArea}"
+							value="#{projeto.titulo}" class="project">
 							<f:param name="projeto_id" value="#{projeto.id}" />
 						</h:commandLink>
 					</ui:repeat>

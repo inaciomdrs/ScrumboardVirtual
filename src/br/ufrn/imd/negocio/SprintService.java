@@ -16,7 +16,9 @@ public class SprintService {
 	private SprintJPADAO sprintJPADAO;
 
 	public Sprint cadastrarSprint(Sprint sprint){
-		sprint = sprintJPADAO.salvar(sprint);
+		if(sprint != null){
+			sprint = sprintJPADAO.salvar(sprint);	
+		}
 		return sprint;
 	}
 	

@@ -34,6 +34,23 @@ public class SprintMBean {
 		cleanData();
 	}
 	
+	public String cadastroNovaSprint(){
+		novaSprint = new Sprint();
+		return "/board_area/nova_sprint.jsf";
+	}
+	
+	public void cadastrarNovaSprint(Projeto projeto){
+		if(projeto != null){
+			novaSprint.setProjeto(projeto);	
+		}
+		
+		novaSprint = sprintService.cadastrarSprint(novaSprint);
+		
+		if(novaSprint == null){
+			novaSprint = new Sprint();
+		}
+	}
+			
 	public void selecionarSprint(){
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		selecionarSprint(facesContext);

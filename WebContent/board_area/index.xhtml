@@ -7,13 +7,32 @@
 	template="/include/template_logged_user.xhtml">
 
 	<ui:define name="quadro">
-		<p:tabView dynamic="true" cache="true">
-			<c:forEach items="#{tarefaMBean.tarefasUsuarios}"
-				var="participanteTarefa">
+		<h:form>
 
-				<p:tab title="#{participanteTarefa.key.nome}">
+			<p:tabView dynamic="true" cache="true">
+				<c:forEach items="#{tarefaMBean.tarefasUsuarios}"
+					var="participanteTarefa">
 
-					<c:forEach items="#{participanteTarefa.value}" var="tarefa">
+					<p:tab title="#{participanteTarefa.key.nome}">
+
+						<c:forEach items="#{participanteTarefa.value}" var="tarefa">
+							<div class="row">
+								<div class="col-sm-7">
+									<h:commandLink class="user_story"
+										action="#{tarefaMBean.exibeTarefa}">
+										<h:outputText value="#{tarefa.titulo}" />
+										<f:param name="tarefa_id" value="#{tarefa.id}" />
+									</h:commandLink>
+								</div>
+							</div>
+						</c:forEach>
+
+					</p:tab>
+
+				</c:forEach>
+
+				<p:tab title="Livres">
+					<c:forEach items="#{tarefaMBean.tarefasLivres}" var="tarefa">
 						<div class="row">
 							<div class="col-sm-7">
 								<h:commandLink class="user_story"
@@ -25,84 +44,80 @@
 						</div>
 					</c:forEach>
 
-				</p:tab>
-
-			</c:forEach>
-
-			<p:tab title="Livres">
-				<c:forEach items="#{tarefaMBean.tarefasLivres}" var="tarefa">
 					<div class="row">
 						<div class="col-sm-7">
-							<h:commandLink class="user_story"
-								action="#{tarefaMBean.exibeTarefa}">
-								<h:outputText value="#{tarefa.titulo}" />
-								<f:param name="tarefa_id" value="#{tarefa.id}" />
-							</h:commandLink>
+							<h:commandButton value="Distribuir" action="#" />
 						</div>
 					</div>
-				</c:forEach>
+				</p:tab>
+			</p:tabView>
 
-				<div class="row">
-					<div class="col-sm-7">
-						<h:commandButton value="Distribuir" action="#" />
-					</div>
-				</div>
-			</p:tab>
-		</p:tabView>
+		</h:form>
 
 	</ui:define>
 
 	<ui:define name="side_retangle">
-		<strong><h:outputText value="#{tarefaMBean.tarefa.titulo}" /></strong>
-		<p>
-			<strong>Responsável</strong>:
-			<h:outputText value="#{tarefaMBean.tarefa.usuario.nome}" />
-		</p>
-		<p>
-			<h:outputText value="#{tarefaMBean.tarefa.descricao}" />
-		</p>
-		<p>
-			<h:outputText value="#{tarefaMBean.tarefa.pontuacao}" />
-			pontos
-		</p>
-		<p>
-			<c:choose>
-				<c:when
-					test="#{tarefaMBean.tarefa.estado eq tarefaMBean.OPEN_STATE}">
-					<strong class="open_user_story"><h:outputText
-							rendered="true" value="Aberta" /></strong>
-				</c:when>
+		<h:form>
 
-				<c:when
-					test="#{tarefaMBean.tarefa.estado eq tarefaMBean.CLOSED_STATE}">
-					<strong class="closed_user_story"><h:outputText
-							rendered="true" value="Fechada" /></strong>
-				</c:when>
-			</c:choose>
-		</p>
+			<c:if test="#{tarefaMBean.tarefa ne tarefaMBean.NO_TASK}">
+				<strong><h:outputText value="#{tarefaMBean.tarefa.titulo}" /></strong>
+				<p>
+					<strong>Responsável</strong>:
+					<h:outputText value="#{tarefaMBean.tarefa.usuario.nome}" />
+				</p>
+				<p>
+					<h:outputText value="#{tarefaMBean.tarefa.descricao}" />
+				</p>
+				<p>
+					<h:outputText value="#{tarefaMBean.tarefa.pontuacao}" />
+					pontos
+				</p>
+				<p>
+					<c:choose>
+						<c:when
+							test="#{tarefaMBean.tarefa.estado eq tarefaMBean.OPEN_STATE}">
+							<strong class="open_user_story"><h:outputText
+									rendered="true" value="Aberta" /></strong>
+						</c:when>
 
-		<ul style="margin: 0; padding: 0; float: right">
-			<c:if test="#{tarefaMBean.tarefa.estado eq tarefaMBean.OPEN_STATE}">
-				<li style="display: inline"><h:commandButton rendered="true"
-						value="Fechar" action="#{projetoMBean.fecharTarefa}" class="btn btn-danger" /></li>
+						<c:when
+							test="#{tarefaMBean.tarefa.estado eq tarefaMBean.CLOSED_STATE}">
+							<strong class="closed_user_story"><h:outputText
+									rendered="true" value="Fechada" /></strong>
+						</c:when>
+					</c:choose>
+				</p>
+
+				<ul style="margin: 0; padding: 0; float: right">
+					<c:if test="#{tarefaMBean.tarefa.estado eq tarefaMBean.OPEN_STATE}">
+						<li style="display: inline"><h:commandButton rendered="true"
+								value="Fechar" action="#{projetoMBean.fecharTarefa}"
+								class="btn btn-danger" /></li>
+					</c:if>
+
+					<c:if test="#{tarefaMBean.tarefa.usuario eq tarefaMBean.NO_OWNER}">
+						<li style="display: inline"><h:commandButton rendered="true"
+								value="Assumir" action="#{projetoMBean.assumirTarefa}"
+								class="btn btn-info" /></li>
+					</c:if>
+
+				</ul>
 			</c:if>
 
-			<c:if test="#{tarefaMBean.tarefa.usuario eq tarefaMBean.NO_OWNER}">
-				<li style="display: inline"><h:commandButton rendered="true"
-					value="Assumir" action="#{projetoMBean.assumirTarefa}" class="btn btn-info" /></li>	
-			</c:if>
-			
-		</ul>
-
+		</h:form>
 	</ui:define>
 
 	<ui:define name="quadro_bottom">
-		<ul style="margin: 0; padding: 0">
-			<li style="display: inline"><h:commandButton value="Nova Sprint"
-					action="#" class="btn" /></li>
-			<li style="display: inline"><h:commandButton
-					value="Nova User Story" action="#" class="btn" /></li>
-		</ul>
+		<h:form>
+			<ul style="margin: 0; padding: 0">
+				<li style="display: inline"><h:commandButton
+						value="Nova Sprint" action="#{sprintMBean.cadastroNovaSprint}"
+						class="btn" /></li>
+				<li style="display: inline"><h:commandButton
+						value="Nova Tarefa" action="#{tarefaMBean.cadastrarNovaTarefa}"
+						class="btn" /></li>
+			</ul>
+		</h:form>
 	</ui:define>
 
 </ui:composition>

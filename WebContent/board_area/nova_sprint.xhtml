@@ -7,44 +7,48 @@
 	template="/include/template_logged_user.xhtml">
 
 	<ui:define name="quadro">
-		<div class="tela_cadastro">
-			<h4>
-				<strong>Nova Sprint</strong>
-			</h4>
+		<h:form>
+			<div class="tela_cadastro">
+				<h4>
+					<strong>Nova Sprint</strong>
+				</h4>
 
-			<h:form class="form-horizontal">
 				<fieldset>
 					<div class="form-group">
 						<label class="control-label col-sm-2">Titulo</label>
 						<div class="col-sm-10">
-							<h:inputText required="true" class="form-control" />
+							<h:inputText value="#{sprintMBean.novaSprint.titulo}"
+								required="true" class="form-control" />
 						</div>
 					</div>
 
 					<div class="form-group">
 						<label class="control-label col-sm-2">Descrição</label>
 						<div class="col-sm-10">
-							<h:inputTextarea required="true" class="form-control" />
+							<h:inputTextarea value="#{sprintMBean.novaSprint.descricao}"
+								required="true" class="form-control" />
 						</div>
 					</div>
 
 					<div class="form-group">
 						<label class="control-label col-sm-2">Data de Finalização</label>
 						<div class="col-sm-10">
-							<p:calendar pattern="dd/MM/yyyy" />
+							<p:calendar value="#{sprintMBean.novaSprint.dataFinalizacao}"
+								pattern="dd/MM/yyyy" />
 						</div>
 					</div>
 
 					<br />
 
 					<div class="form-group col-sm-offset-10">
-						<h:commandButton action="#" value="Cadastrar"
-							class="btn btn-primary" />
+						<h:commandButton action="#{projetoMBean.cadastrarNovaSprint}"
+							value="Cadastrar" class="btn btn-primary" />
 					</div>
 
 				</fieldset>
-			</h:form>
-		</div>
+			</div>
+
+		</h:form>
 	</ui:define>
 
 	<ui:define name="side_retangle">

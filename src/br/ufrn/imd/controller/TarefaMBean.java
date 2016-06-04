@@ -33,6 +33,7 @@ public class TarefaMBean {
 	private final Estado OPEN_STATE;
 	private final Estado CLOSED_STATE;
 	private final Usuario NO_OWNER;
+	private final Tarefa NO_TASK;
 
 	private Map<Usuario, List<Tarefa>> tarefasUsuarios;
 	private List<Tarefa> tarefasLivres;
@@ -42,6 +43,7 @@ public class TarefaMBean {
 		OPEN_STATE = Estado.OPEN;
 		CLOSED_STATE = Estado.CLOSED;
 		NO_OWNER = null;
+		NO_TASK = null;
 	}
 
 	public String exibeTarefa() {
@@ -49,6 +51,11 @@ public class TarefaMBean {
 		selecionarTarefa(facesContext);
 
 		return "/board_area/index.jsf";
+	}
+	
+	public String cadastrarNovaTarefa(){
+		novaTarefa = new Tarefa();
+		return "/board_area/nova_tarefa.jsf";
 	}
 
 	public void fecharTarefa() {
@@ -66,7 +73,7 @@ public class TarefaMBean {
 			tarefa = new Tarefa();
 		}
 	}
-
+		
 	public void cleanData() {
 		tarefa = new Tarefa();
 		novaTarefa = new Tarefa();
@@ -91,6 +98,7 @@ public class TarefaMBean {
 		cleanData();
 
 		List<Tarefa> sprintTasks = tarefaService.tarefasDaSprint(sprint);
+		Tarefa FIRST_TASK = null;
 
 		if ((sprintTasks != null) && (sprintTasks.size() > 0)) {
 			long userId;
@@ -109,9 +117,11 @@ public class TarefaMBean {
 				}
 				tarefasUsuarios.put(participante, tarefasUsuario);
 			}
+			
+			FIRST_TASK = tarefasUsuarios.get(participantesProjeto.get(0)).get(0);
 		}
 
-		setTarefa(new Tarefa());
+		setTarefa(FIRST_TASK);
 	}
 
 	public Tarefa getTarefa() {
@@ -164,6 +174,10 @@ public class TarefaMBean {
 
 	public void setUsuarioMBean(UsuarioMBean usuarioMBean) {
 		this.usuarioMBean = usuarioMBean;
+	}
+
+	public Tarefa getNO_TASK() {
+		return NO_TASK;
 	}
 
 }
