@@ -79,7 +79,6 @@ public class DistribuidorTarefas {
 			usuario = usuarios.get(associacaoPessoaTarefa[tarefaPos]);
 			
 			tarefa.setUsuario(usuario);
-			usuario.getTarefas().add(tarefa);
 		}
 	}
 	

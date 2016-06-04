@@ -56,18 +56,16 @@ public class TarefaService {
 	}
 	
 	public void distribuirTarefas(List<Usuario> participantes, List<Tarefa> tarefas){
-		// TODO Implement this method
+		if((participantes == null) || (tarefas == null) || (tarefas.size() == 0)) {
+			return;
+		}
 		
-//		if((participantes == null) || (tarefasLivres == null) || (tarefasLivres.size() == 0)) {
-//			return;
-//		}
-//		
-//		DistribuidorTarefas distribuidor = DistribuidorTarefas.getInstance();
-//		distribuidor.distribuirTarefas(tarefasLivres, participantes);
-//		
-//		for(Tarefa tarefa : tarefasLivres){
-//			tarefa
-//		}
+		DistribuidorTarefas distribuidor = DistribuidorTarefas.getInstance();
+		distribuidor.distribuirTarefas(tarefas, participantes);
+		
+		for(Tarefa tarefa : tarefas){
+			tarefa = tarefaJPADAO.atualizar(tarefa);
+		}
 	}
 	
 }

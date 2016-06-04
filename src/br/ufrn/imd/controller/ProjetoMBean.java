@@ -125,6 +125,9 @@ public class ProjetoMBean {
 	
 	public String distribuirTarefas(){
 		tarefaMBean.distribuirTarefas(participantesProjeto);
+		
+		tarefaMBean.prepareBoardAreaFrom(participantesProjeto, sprintMBean.getSprint());
+		
 		return goBoardArea();
 	}
 
