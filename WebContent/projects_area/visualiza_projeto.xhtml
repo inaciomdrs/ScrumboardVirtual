@@ -24,8 +24,7 @@
 
 				<hr />
 
-				<c:if
-					test="#{projetoMBean.exibirResultadosBuscaParticipantes eq true}">
+				<c:if test="#{usuarioMBean.exibirBuscaParticipantes eq true}">
 					<h:panelGroup layout="block" styleClass="selection">
 
 						<p:column rendered="true">
@@ -36,31 +35,40 @@
 											required="true" class="form-control" />
 									</div>
 									<div class="col-sm-2">
-										<h:commandButton value="Buscar" class="btn btn-primary" />
+										<h:commandButton
+											action="#{usuarioMBean.procurarParticipantes}" value="Buscar"
+											class="btn btn-primary" />
 									</div>
 								</div>
 							</fieldset>
 
 							<hr />
 
-
-							<h:selectManyCheckbox value="#{usuarioMBean.usuariosEncontrados}"
-								layout="pageDirection">
+							<h:selectManyCheckbox
+								value="#{projetoMBean.participantesAdicionadosAoProjeto}"
+								layout="pageDirection" converter="usuarioConverter">
 
 								<c:forEach items="#{usuarioMBean.usuariosEncontrados}"
 									var="usuario">
-									<f:selectItem itemValue="#{usuario}"
-										itemLabel="#{usuario.nome}" />
+
+									<f:selectItem itemLabel="#{usuario.login}"
+										itemValue="#{usuario}" />
+
 								</c:forEach>
+
 							</h:selectManyCheckbox>
 
 						</p:column>
-						
+
 					</h:panelGroup>
 
 					<br />
 
-					<h:commandButton value="Adicionar" class="btn btn-primary" />
+					<h:commandButton action="#{projetoMBean.adicionaUsuariosAoProjeto}"
+						value="Adicionar" class="btn btn-primary">
+						<f:param name="projeto_id"
+							value="#{projetoMBean.projetoSelecionadoProjectsArea.id}" />
+					</h:commandButton>
 
 				</c:if>
 
@@ -80,7 +88,8 @@
 				</ul>
 				<br />
 
-				<h:commandLink value="Adicionar Participantes" class="link" />
+				<h:commandLink value="Adicionar Participantes"
+					action="#{usuarioMBean.buscaParticipantes}" class="link" />
 
 			</h:form>
 		</div>

@@ -62,6 +62,28 @@ public class Usuario implements Serializable {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
+	
+	public List<Tarefa> getTarefas() {
+		return tarefas;
+	}
+
+	public void setTarefas(List<Tarefa> tarefas) {
+		this.tarefas = tarefas;
+	}
+
+	public List<Participacao> getParticipacoes() {
+		return participacoes;
+	}
+
+	public void setParticipacoes(List<Participacao> participacoes) {
+		this.participacoes = participacoes;
+	}
+			
+	@Override
+	public String toString() {
+		return login;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -69,9 +91,9 @@ public class Usuario implements Serializable {
 		result = prime * result + (int) (id ^ (id >>> 32));
 		result = prime * result + ((login == null) ? 0 : login.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
-		result = prime * result + ((senha == null) ? 0 : senha.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -93,34 +115,7 @@ public class Usuario implements Serializable {
 				return false;
 		} else if (!nome.equals(other.nome))
 			return false;
-		if (senha == null) {
-			if (other.senha != null)
-				return false;
-		} else if (!senha.equals(other.senha))
-			return false;
 		return true;
-	}
-
-	public List<Tarefa> getTarefas() {
-		return tarefas;
-	}
-
-	public void setTarefas(List<Tarefa> tarefas) {
-		this.tarefas = tarefas;
-	}
-
-	public List<Participacao> getParticipacoes() {
-		return participacoes;
-	}
-
-	public void setParticipacoes(List<Participacao> participacoes) {
-		this.participacoes = participacoes;
-	}
-			
-	@Override
-	public String toString() {
-		return "Usuario [id=" + id + ", nome=" + nome + ", login=" + login + ", senha=" + senha + ", tarefas=" + tarefas
-				+ ", participacoes=" + participacoes + "]";
 	}
 
 }

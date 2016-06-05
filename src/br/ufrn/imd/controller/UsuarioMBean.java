@@ -17,6 +17,8 @@ import br.ufrn.imd.negocio.UsuarioService;
 @SessionScoped
 public class UsuarioMBean {
 
+	private boolean exibirBuscaParticipantes;
+	
 	private Usuario usuario;
 	private Usuario usuarioLogado;
 	
@@ -26,6 +28,8 @@ public class UsuarioMBean {
 	private UsuarioService usuarioService;
 			
 	public UsuarioMBean() {
+		exibirBuscaParticipantes = false;
+		
 		usuario = new Usuario();
 		usuariosEncontrados = new ArrayList<Usuario>();
 	}
@@ -59,6 +63,22 @@ public class UsuarioMBean {
 		
 		return usuarios;
 	}
+	
+	public String buscaParticipantes(){
+		usuario = new Usuario();
+		usuariosEncontrados = new ArrayList<Usuario>();
+		exibirBuscaParticipantes = true;		
+		
+		return "/projects_area/visualiza_projeto.jsf";
+	}
+	
+	public String procurarParticipantes(){
+		String loginBusca = getUsuario().getLogin();
+		
+		usuariosEncontrados = usuarioService.usuariosComLogin(loginBusca);  
+		
+		return "/projects_area/visualiza_projeto.jsf";
+	}
 		
 	public Usuario getUsuarioLogado() {
 		return usuarioLogado;
@@ -82,6 +102,14 @@ public class UsuarioMBean {
 
 	public void setUsuariosEncontrados(List<Usuario> usuariosEncontrados) {
 		this.usuariosEncontrados = usuariosEncontrados;
+	}
+
+	public boolean isExibirBuscaParticipantes() {
+		return exibirBuscaParticipantes;
+	}
+
+	public void setExibirBuscaParticipantes(boolean exibirBuscaParticipantes) {
+		this.exibirBuscaParticipantes = exibirBuscaParticipantes;
 	}
 
 }

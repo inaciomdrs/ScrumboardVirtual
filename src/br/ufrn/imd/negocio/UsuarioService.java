@@ -38,6 +38,11 @@ public class UsuarioService {
 			return null;
 		}
 	}
+	
+	public List<Usuario> usuariosComLogin(String login){
+		List<Usuario> usuariosEncontrados = usuarioJPADAO.buscaUsuariosComLogin(login);
+		return usuariosEncontrados;
+	}
 
 	public Usuario logarComGit(Usuario usuario) {
 		String loginUsuario = usuario.getLogin();

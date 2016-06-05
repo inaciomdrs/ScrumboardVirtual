@@ -45,4 +45,20 @@ public class ProjetoService {
 		return projetos;
 	}
 	
+	public void adicionarUsuariosAoProjeto(Projeto projeto, List<Usuario> usuarios){
+		Participacao participacao;
+		if((projeto != null) && (usuarios != null) && (usuarios.size() > 0)){
+			for(Usuario usuario : usuarios){
+				participacao = new Participacao();
+				participacao.setProjeto(projeto);
+				participacao.setUsuario(usuario);
+				participacao.setPapel(Papel.DEVELOPER);
+				
+				if(participacaoJPADAO.buscaParticipacao(participacao) == null){
+					participacaoJPADAO.salvar(participacao);	
+				}
+			}	
+		}
+	}
+	
 }
