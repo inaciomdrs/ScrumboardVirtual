@@ -52,8 +52,27 @@ public class UsuarioMBean {
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 		return "/index.jsf";
 	}
-			
-			
+	
+	public String novaConta(){
+		usuario = new Usuario();
+		return "/cria_conta.jsf";
+	}
+	
+	public String cadastrarUsuario(){
+		usuario = usuarioService.cadastrarUsuario(usuario);
+		
+		if (usuario == null) {
+			FacesMessage msg = new FacesMessage("Erro: Login já existente. Informar outro");
+			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+			FacesContext.getCurrentInstance().addMessage("", msg);
+			return null;
+		}
+		
+		usuario = new Usuario();
+		
+		return "/index.jsf";
+	}
+	
 	public String selecaoArea(){
 		return "/common/seleciona_area.jsf";
 	}

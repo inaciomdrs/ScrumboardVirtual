@@ -21,6 +21,22 @@ public class UsuarioService {
 	public UsuarioService() {
 		usuarioGitDAO = new UsuarioGitDAO();
 	}
+	
+	public Usuario cadastrarUsuario(Usuario usuario){
+		if(usuario == null){
+			return null;
+		}
+		
+		List<Usuario> usuariosExistentes = usuariosComLogin(usuario.getLogin());
+		
+		if((usuariosExistentes != null) && (usuariosExistentes.size() > 0)){
+			return null;
+		}
+		
+		usuario = usuarioJPADAO.salvar(usuario);
+		
+		return usuario;
+	}
 
 	public Usuario logar(Usuario usuario) {
 		String loginUsuario = usuario.getLogin();

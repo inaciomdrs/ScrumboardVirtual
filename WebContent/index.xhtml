@@ -8,7 +8,8 @@
 	<ui:define name="conteudo">
 		<div class="row">
 			<div class="col-md-6 center-of-page">
-				<h:graphicImage style="margin-left:25%;" value="/resources/img/logo.png" />
+				<h:graphicImage style="margin-left:25%;"
+					value="/resources/img/logo.png" />
 			</div>
 			<div class="col-md-6 center-of-page">
 				<h:form>
@@ -16,21 +17,25 @@
 						<div>
 							<h:messages style="color: black;" />
 						</div>
-						
+
 						<div class="form-group">
 							<label class="white">Login:</label>
-							<h:inputText class="form-control" value="#{usuarioMBean.usuario.login}" />
+							<h:inputText class="form-control"
+								value="#{usuarioMBean.usuario.login}" />
 						</div>
 						<div class="form-group">
 							<label class="white">Senha:</label>
-							<h:inputSecret class="form-control" value="#{usuarioMBean.usuario.senha}" />
+							<h:inputSecret class="form-control"
+								value="#{usuarioMBean.usuario.senha}" />
 						</div>
 						<div class="form-group">
 							<h:selectBooleanCheckbox value="false" />
 							<label class="white">Usuário GitHub</label>
 						</div>
-						<h:commandButton class="btn btn-default space" action="#{usuarioMBean.logar}" value="Entrar" />
-						<h:commandButton class="btn btn-default space" action="#" value="Criar Conta" />											
+						<h:commandButton class="btn btn-default space"
+							action="#{usuarioMBean.logar}" value="Entrar" />
+						<h:commandButton class="btn btn-default space"
+							action="#{usuarioMBean.novaConta}" value="Criar Conta" />
 					</fieldset>
 				</h:form>
 			</div>
