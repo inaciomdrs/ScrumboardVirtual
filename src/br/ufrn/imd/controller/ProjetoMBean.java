@@ -10,8 +10,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.model.DataModel;
-import javax.faces.model.ListDataModel;
 
 import br.ufrn.imd.dominio.Projeto;
 import br.ufrn.imd.dominio.Sprint;
@@ -34,22 +32,26 @@ public class ProjetoMBean {
 	@ManagedProperty(value = "#{tarefaMBean}")
 	private TarefaMBean tarefaMBean;
 
+	private boolean exibirResultadosBuscaParticipantes;
+	
 	private Projeto projeto;
 	private Projeto projetoSelecionadoBoardArea;
 	private Projeto projetoSelecionadoProjectsArea;
 
-	private DataModel<Projeto> listaProjetos;
+	private List<Projeto> listaProjetos;
 
 	private List<Usuario> participantesProjeto;
 
 	private Usuario[] participantesSelecionadosDistribuicao;
 
 	public ProjetoMBean() {
+		exibirResultadosBuscaParticipantes = false;
+		
 		projeto = new Projeto();
 		projetoSelecionadoBoardArea = new Projeto();
 		projetoSelecionadoProjectsArea = new Projeto();
 
-		listaProjetos = new ListDataModel<Projeto>();
+		listaProjetos = new ArrayList<Projeto>();
 
 		participantesProjeto = new ArrayList<Usuario>();
 	}
@@ -62,6 +64,34 @@ public class ProjetoMBean {
 	public String projectsArea() {
 		carregarListagemProjetos();
 		return "/projects_area/index.jsf";
+	}
+	
+	public String novoProjeto() {
+		projeto = new Projeto();
+		return "/projects_area/novo_projeto.jsf";
+	}
+	
+	public String cadastrarProjeto(){
+		Usuario coordenador = usuarioMBean.getUsuarioLogado();
+						
+		projeto = projetoService.cadastrarProjeto(projeto, coordenador);
+		
+		if(projeto == null){
+			projeto = new Projeto();
+		}
+		
+		return projectsArea();
+	}
+	
+	public String visualizaProjeto(){
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		projetoSelecionadoProjectsArea = selecionarProjeto(facesContext);
+		
+		participantesProjeto = usuarioMBean.usuariosDoProjeto(projetoSelecionadoProjectsArea);
+		
+		usuarioMBean.setUsuario(new Usuario());
+		
+		return "/projects_area/visualiza_projeto.jsf";
 	}
 
 	public String boardArea() {
@@ -138,9 +168,7 @@ public class ProjetoMBean {
 	private void carregarListagemProjetos() {
 		Usuario usuario = usuarioMBean.getUsuarioLogado();
 
-		List<Projeto> projetos = projetoService.listarProjetosDeUsuario(usuario);
-
-		listaProjetos = new ListDataModel<Projeto>(projetos);
+		listaProjetos = projetoService.listarProjetosDeUsuario(usuario);
 	}
 
 	public Projeto selecionarProjeto(FacesContext facesContext) {
@@ -185,11 +213,11 @@ public class ProjetoMBean {
 		this.projeto = projeto;
 	}
 
-	public DataModel<Projeto> getListaProjetos() {
+	public List<Projeto> getListaProjetos() {
 		return listaProjetos;
 	}
 
-	public void setListaProjetos(DataModel<Projeto> listaProjetos) {
+	public void setListaProjetos(List<Projeto> listaProjetos) {
 		this.listaProjetos = listaProjetos;
 	}
 
@@ -231,6 +259,14 @@ public class ProjetoMBean {
 
 	public void setParticipantesSelecionadosDistribuicao(Usuario[] participantesSelecionadosDistribuicao) {
 		this.participantesSelecionadosDistribuicao = participantesSelecionadosDistribuicao;
+	}
+
+	public boolean isExibirResultadosBuscaParticipantes() {
+		return exibirResultadosBuscaParticipantes;
+	}
+
+	public void setExibirResultadosBuscaParticipantes(boolean exibirResultadosBuscaParticipantes) {
+		this.exibirResultadosBuscaParticipantes = exibirResultadosBuscaParticipantes;
 	}
 
 }

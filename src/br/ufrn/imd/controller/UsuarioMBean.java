@@ -1,5 +1,6 @@
 package br.ufrn.imd.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -18,12 +19,15 @@ public class UsuarioMBean {
 
 	private Usuario usuario;
 	private Usuario usuarioLogado;
+	
+	private List<Usuario> usuariosEncontrados;
 
 	@EJB
 	private UsuarioService usuarioService;
 			
 	public UsuarioMBean() {
 		usuario = new Usuario();
+		usuariosEncontrados = new ArrayList<Usuario>();
 	}
 
 	public String logar() {
@@ -70,6 +74,14 @@ public class UsuarioMBean {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public List<Usuario> getUsuariosEncontrados() {
+		return usuariosEncontrados;
+	}
+
+	public void setUsuariosEncontrados(List<Usuario> usuariosEncontrados) {
+		this.usuariosEncontrados = usuariosEncontrados;
 	}
 
 }

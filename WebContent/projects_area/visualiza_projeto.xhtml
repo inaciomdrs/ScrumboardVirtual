@@ -9,60 +9,80 @@
 	<ui:define name="conteudo_area">
 
 		<div class="col-sm-8 tela_cadastro">
-			<p:column rendered="true">
-				<h1>Titulo do projeto</h1>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-					mattis neque blandit turpis suscipit, nec consequat lorem
-					scelerisque. Aliquam eu consectetur erat. Aliquam malesuada
-					tincidunt diam viverra pretium. Duis venenatis nisi ac justo
-					molestie, eu ullamcorper felis ullamcorper. Suspendisse non rhoncus
-					odio. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-					Donec eu mauris eget neque volutpat congue. Morbi dolor ex, pretium
-					sit amet justo et, commodo sagittis sapien. Nullam quis porttitor
-					urna. Maecenas semper rutrum urna, eu egestas enim eleifend
-					dignissim. Sed eget justo ex. Vivamus elementum justo ac ante
-					varius, in porta orci dapibus. In porta et tortor eu congue. Mauris
-					non nunc arcu. Suspendisse vel felis eget erat lobortis blandit.</p>
-			</p:column>
+			<h:form>
 
-			<hr />
-
-			<p:column rendered="true">
-				<fieldset>
-					<div class="form-group">
-						<div class="col-sm-10">
-							<h:inputText value="Usuario" required="true" class="form-control" />
-						</div>
-						<div class="col-sm-2">
-							<h:commandButton value="Buscar" class="btn btn-primary" />
-						</div>
-					</div>
-				</fieldset>
+				<p:column rendered="true">
+					<h1>
+						<h:outputText
+							value="#{projetoMBean.projetoSelecionadoProjectsArea.titulo}" />
+					</h1>
+					<p>
+						<h:outputText
+							value="#{projetoMBean.projetoSelecionadoProjectsArea.descricao}" />
+					</p>
+				</p:column>
 
 				<hr />
 
-				<h:panelGroup layout="block" styleClass="selection">
-					<h:selectManyCheckbox layout="pageDirection">
-						<f:selectItem itemValue="h" itemLabel="Handerson" />
-						<f:selectItem itemValue="i" itemLabel="Isaac" />
-					</h:selectManyCheckbox>
-				</h:panelGroup>
+				<c:if
+					test="#{projetoMBean.exibirResultadosBuscaParticipantes eq true}">
+					<h:panelGroup layout="block" styleClass="selection">
 
-				<br />
+						<p:column rendered="true">
+							<fieldset>
+								<div class="form-group">
+									<div class="col-sm-10">
+										<h:inputText value="#{usuarioMBean.usuario.login}"
+											required="true" class="form-control" />
+									</div>
+									<div class="col-sm-2">
+										<h:commandButton value="Buscar" class="btn btn-primary" />
+									</div>
+								</div>
+							</fieldset>
 
-				<h:commandButton value="Adicionar" class="btn btn-primary" />
-			</p:column>
+							<hr />
+
+
+							<h:selectManyCheckbox value="#{usuarioMBean.usuariosEncontrados}"
+								layout="pageDirection">
+
+								<c:forEach items="#{usuarioMBean.usuariosEncontrados}"
+									var="usuario">
+									<f:selectItem itemValue="#{usuario}"
+										itemLabel="#{usuario.nome}" />
+								</c:forEach>
+							</h:selectManyCheckbox>
+
+						</p:column>
+						
+					</h:panelGroup>
+
+					<br />
+
+					<h:commandButton value="Adicionar" class="btn btn-primary" />
+
+				</c:if>
+
+			</h:form>
+
 		</div>
 
 		<div class="col-sm-4 tela_cadastro">
-			<h1>Participantes</h1>
-			<ul>
-				<li>Inácio</li>
-				<li>Itamir</li>
-			</ul>
-			<br />
+			<h:form>
 
-			<h:commandLink value="Adicionar Participantes" class="link" />
+				<h1>Participantes</h1>
+				<ul>
+					<c:forEach items="#{projetoMBean.participantesProjeto}"
+						var="participante">
+						<li><h:outputText value="#{participante.nome}" /></li>
+					</c:forEach>
+				</ul>
+				<br />
+
+				<h:commandLink value="Adicionar Participantes" class="link" />
+
+			</h:form>
 		</div>
 	</ui:define>
 

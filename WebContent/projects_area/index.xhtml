@@ -7,12 +7,18 @@
 	template="/include/template_projects_area.xhtml">
 
 	<ui:define name="conteudo_area">
-		<p:panelGrid columns="4" layout="grid">
-			<h:commandLink action="#" value="Projeto A" class="project" />
-			<h:commandLink action="#" value="Projeto B" class="project" />
-			<h:commandLink action="#" value="Projeto C" class="project" />
-			<h:commandLink action="#" value="Projeto D" class="project" />
-		</p:panelGrid>
+		<h:form>
+			<p:panelGrid columns="4" layout="grid">
+				<c:forEach items="#{projetoMBean.listaProjetos}" var="projeto">
+					<h:commandLink action="#{projetoMBean.visualizaProjeto}"
+						value="#{projeto.titulo}" class="project">
+
+						<f:param name="projeto_id" value="#{projeto.id}" />
+
+					</h:commandLink>
+				</c:forEach>
+			</p:panelGrid>
+		</h:form>
 	</ui:define>
 
 </ui:composition>

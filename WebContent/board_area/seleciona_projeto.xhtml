@@ -29,14 +29,13 @@
 
 		<div class="row">
 			<h:form>
-				<p:panelGrid columns="3" layout="grid">
-					<ui:repeat var="projeto" value="#{projetoMBean.listaProjetos}"
-						varStatus="status">
+				<p:panelGrid columns="4" layout="grid">
+					<c:forEach items="#{projetoMBean.listaProjetos}" var="projeto">
 						<h:commandLink action="#{projetoMBean.boardArea}"
 							value="#{projeto.titulo}" class="project">
 							<f:param name="projeto_id" value="#{projeto.id}" />
 						</h:commandLink>
-					</ui:repeat>
+					</c:forEach>
 				</p:panelGrid>
 			</h:form>
 		</div>

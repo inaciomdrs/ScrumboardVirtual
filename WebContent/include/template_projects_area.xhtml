@@ -14,7 +14,8 @@
 				<div class="col-sm-3">
 					<h3 class="user_logged">
 						<h:outputText value="#{usuarioMBean.usuarioLogado.login}" />
-						<h:commandLink action="#{usuarioMBean.logout}" value="Sair" class="badge" />
+						<h:commandLink action="#{usuarioMBean.logout}" value="Sair"
+							class="badge" />
 					</h3>
 				</div>
 			</h:form>
@@ -23,29 +24,28 @@
 		<div class="row">
 			<h:form>
 				<h1>
-					<h:commandLink class="white link" value="Área de Projetos - Inacio" />
+					<h:commandLink class="white link" value="Área de Projetos - #{usuarioMBean.usuarioLogado.nome}"
+						action="#{projetoMBean.projectsArea}" />
 				</h1>
 				<nav class="navbar navbar-default">
 					<ul class="nav navbar-nav">
-						<li><h:commandLink value="Projetos" /></li>
-						<li><h:commandLink value="Novo Projeto" /></li>
-						<li><h:commandLink action="#{usuarioMBean.selecaoArea}" value="Seleção de área" /></li>
+						<li><h:commandLink value="Projetos"
+								action="#{projetoMBean.projectsArea}" /></li>
+						<li><h:commandLink value="Novo Projeto"
+								action="#{projetoMBean.novoProjeto}" /></li>
+						<li><h:commandLink action="#{usuarioMBean.selecaoArea}"
+								value="Seleção de área" /></li>
 					</ul>
 				</nav>
 			</h:form>
 		</div>
 
-		<h:form>
-			<div class="row">
-				<h:form>
-					<ui:insert name="conteudo_area">Conteúdo</ui:insert>
-				</h:form>
-			</div>
 
-			<div class="row">
-				
-			</div>
-		</h:form>
+		<div class="row">
+			<ui:insert name="conteudo_area">Conteúdo</ui:insert>
+		</div>
+
+		<div class="row"></div>
 	</ui:define>
 
 </ui:composition>
